@@ -4,10 +4,14 @@ import { Cache } from 'cache-manager';
 
 @Injectable()
 export class AppService {
-
   constructor(@Inject(CACHE_MANAGER) private readonly cacheManager: Cache) {}
 
-  getHello(): string {
+  async getHello() {
+    await this.cacheManager.set('cached_item', { key: 32 }, 10);
+    await this.cacheManager.del('cache_item');
+    const cachedItem = await this.cacheManager.get('cached_item');
+    console.log(cachedItem);
+
     return 'Hello World!';
   }
 }
