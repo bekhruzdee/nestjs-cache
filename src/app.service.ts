@@ -8,7 +8,9 @@ export class AppService {
 
   async getHello() {
     await this.cacheManager.set('cached_item', { key: 32 }, 10);
-    await this.cacheManager.del('cache_item');
+
+    await this.cacheManager.del('cached_item');
+
     const cachedItem = await this.cacheManager.get('cached_item');
     console.log(cachedItem);
 
